@@ -1,0 +1,165 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>交易管理</title>
+    <!-- 套用css -->
+    <link href="{% static "css/style05.css" %}" rel="stylesheet" type="text/css"
+    />
+    <!-- js -->
+    <script src="../static/js/jquery-3.1.1.min.js"></script>
+    <script src="../static/js/all1.js"></script>
+    <!--red rose字體-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Red+Rose:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- 字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- ramaraja字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ramaraja&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body background="#9AA0A7">
+    <div class="wrap">
+      <div class="header trade-head-bg3" id="top">
+        <div class="nav">
+          <div class="nav-left">
+            <a href="/">
+              <h2>FACS</h2>
+
+              <img src="{% static 'logo.png' %}" alt="" />
+            </a>
+          </div>
+
+          <ul class="menu">
+            {% if user.is_authenticated %}
+
+                <li><a href="/upload">上傳介面</a></li>
+                <li><a href="/videos/">影片列表</a></li>
+                <li><a href="/trade" class="in-menu">交易管理</a></li>
+                <li><a href="/about">關於我們</a></li>
+                <li>
+                  <a href="/profile"
+                    ><span data-descr="查看資料"
+                      >你好！{{ user.username }}</span
+                    ></a
+                  >
+                </li>
+                <li><a href="{% url 'logout' %}">登出</a></li>
+                {% else %}
+
+                <li><a href="/upload">上傳介面</a></li>
+                <li><a href="/videos/">影片列表</a></li>
+                <li><a href="/trade" class="in-menu">交易管理</a></li>
+                <li><a href="/about">關於我們</a></li>
+                <li><a href="{% url 'login' %}">登入</a></li>
+                {% endif %}
+          </ul>
+          <a href="#" class="showmenu">menu</a>
+        </div>
+
+        <div class="head">
+          <h1>魚苗交易管理</h1>
+          <p>精密計算 節省您的時間</p>
+        </div>
+
+        <div class="trade-menu">
+          <ul>
+            <li><a href="/customerlist/">顧客管理</a></li>
+            <li><a href="/orderlist/">訂單管理</a></li>
+            <li><a href="/chart/">數據統計</a></li>
+            <li><a href="/fishAPI">漁產品交易行情</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="trade-body">
+        <div class="trade-contain1">
+          <div class="trade-fish1"></div>
+          <div class="trade-text1">
+            <h2>為什麼 ━<br />&emsp;選擇了我們？</h2>
+            <p>
+              魚苗相較於成年魚 <br />
+              判斷起來也較為困難<br />
+              透過更精確地偵測 <br />
+              來達到數量精準的檢視 <br />
+              我們<br />
+              能滿足您的需求<br />
+              好的魚苗管理 <br />
+              促進好的經濟發展<br />
+            </p>
+          </div>
+        </div>
+        <div class="trade-contain2">
+          <div class="trade-fish2"></div>
+          <div class="trade-text1 trade-text2">
+            <h2>為什麼 ━<br />&emsp;非我們不可？</h2>
+            <p>
+              我們致力讓每個顧客<br />
+              不透過繁瑣的操作<br />
+              簡單的使用他們的需求<br />
+              不怠忽的產品管理<br />
+              不拖沓的顧客管理<br />
+              不馬虎的訂單管理<br />
+              精確的數據統計<br />
+              好的魚苗管理 就在這<br />
+            </p>
+          </div>
+          <div class="slec">
+            <h2>選擇我們 ━<br />&emsp;是不需要理由的。</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div class="footer-nav">
+          <ul>
+            <li><a href="/upload">上傳介面</a></li>
+            ｜
+            <li><a href="/videos">影片列表</a></li>
+            ｜
+            <li><a href="/trade">交易管理</a></li>
+            ｜
+            <li><a href="/about">關於我們</a></li>
+          </ul>
+        </div>
+        <div class="num-ad">
+          <img
+            src="{% static 'logo.png' %}"
+            width="50px"
+            height="50px"
+            alt=""
+          />
+          <div class="num-ad2">
+            <p>服務電話:(02)0800-001-223</p>
+            <p>服務地址:屏東縣內埔鄉學府路1號</p>
+          </div>
+        </div>
+        <div class="copytight">
+          <p>COPYRIGHT © 2021-2026</p>
+          <p>
+            本站為單純的專題製作，資料、圖片來源皆出各網站，<br />不使用於任何商業或營利行為
+          </p>
+        </div>
+
+        <a href="#top" class="top"><span>▲Top</span></a>
+      </div>
+    </div>
+  </body>
+</html>

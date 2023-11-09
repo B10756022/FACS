@@ -1,0 +1,86 @@
+{% load rest_framework %} {% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>登入頁</title>
+    <!-- 套用css -->
+    <link href="{% static "css/style05.css" %}" rel="stylesheet" type="text/css"
+    />
+    <!-- js -->
+    <script src="../static/js/jquery-3.1.1.min.js"></script>
+    <script src="../static/js/all1.js"></script>
+    <!--red rose字體-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Red+Rose:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- 字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- ramaraja字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ramaraja&display=swap"
+      rel="stylesheet"
+    />
+    <!--Rajdhani-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="login-wrap">
+      <div class="nav">
+        <div class="nav-left">
+          <a href="/">
+            <h2>FACS</h2>
+
+            <img src="{% static 'logo.png' %}" alt="" />
+          </a>
+        </div>
+
+        <ul class="menu">
+          <li><a href="/upload">上傳介面</a></li>
+          ｜
+          <li><a href="/videos">影片列表</a></li>
+          ｜
+          <li><a href="/trade">交易管理</a></li>
+          ｜
+          <li><a href="/about">關於我們</a></li>
+        </ul>
+        <a href="#" class="showmenu">menu</a>
+      </div>
+
+      <div class="login-contain">
+        <div class="login-box">
+          {% if user.is_authenticated %} {% csrf_token %}
+          <h1>你的ID: {{ user.username }}</h1>
+          <a class="login-button-a" href="{% url 'logout' %}" role="button"
+            >登出 &#187;</a
+          >
+          {% else %}
+          <h2>歡迎使用本系統</h2>
+          <p>本系統需要登入後使用</p>
+          <a href="{% url 'logout' %}" class="login-button-a">登入</a>
+
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

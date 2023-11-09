@@ -1,0 +1,90 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>註冊頁</title>
+    <!-- 套用css -->
+    <link href="{% static "css/style05.css" %}" rel="stylesheet" type="text/css"
+    />
+    <!-- js -->
+    <script src="../static/js/jquery-3.1.1.min.js"></script>
+    <script src="../static/js/all1.js"></script>
+    <!--red rose字體-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Red+Rose:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- 字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- ramaraja字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ramaraja&display=swap"
+      rel="stylesheet"
+    />
+    <!--Rajdhani-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="login-wrap">
+      <div class="nav">
+        <div class="nav-left">
+          <a href="/">
+            <h2>FACS</h2>
+
+            <img src="{% static 'logo.png' %}" alt="" />
+          </a>
+        </div>
+
+        <ul class="menu">
+          <li><a href="/upload">上傳介面</a></li>
+          <li><a href="/videos">影片列表</a></li>
+          <li><a href="/trade">交易管理</a></li>
+          <li><a href="/about">關於我們</a></li>
+        </ul>
+        <a href="#" class="showmenu">menu</a>
+      </div>
+
+      <div class="login-contain">
+        <div class="register-box">
+          <form action="" method="POST">
+            {% csrf_token %}
+            <h2 class="register-title">REGISTER</h2>
+            <p>帳號</p>
+            {{ form.username }}
+            <p>電子郵件</p>
+            {{ form.email }}
+            <p>密碼</p>
+            {{ form.password1 }}
+            <p>密碼確認</p>
+            {{ form.password2 }} {% for message in messages %}
+            <p>{{message}}</p>
+            {% endfor %}
+            <div class="login-button-box">
+              <a href="{% url 'login' %}" class="login-button-a"> 登 入 </a>
+              <input type="submit" class="login-button" value=" 註 冊 " />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

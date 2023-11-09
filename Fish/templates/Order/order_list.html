@@ -1,0 +1,336 @@
+{% if user.is_authenticated %} {%csrf_token %} {% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>訂單列表</title>
+    <!-- css插入 -->
+    <link href="{% static "css/style05.css" %}" rel="stylesheet" type="text/css"
+    />
+    <!-- js -->
+    <script src="../../static/js/jquery-3.1.1.min.js"></script>
+    <script src="../../static/js/all1.js"></script>
+    <!--red rose字體-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Red+Rose:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- 字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- ramaraja字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ramaraja&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script
+      src="https://kit.fontawesome.com/54733f5034.js"
+      crossorigin="anonymous"
+    ></script>
+        <style type="text/css">
+      .rwd-table {
+        overflow: hidden;
+      }
+
+      .rwd-table th,
+      .rwd-table td {
+        margin: 0.5em 1em;
+      }
+      .rwd-table {
+        min-width: 100%;
+      }
+
+      .rwd-table th {
+        display: none;
+      }
+
+      .rwd-table td {
+        display: block;
+      }
+
+      .rwd-table td:before {
+        content: attr(data-th) " : ";
+        font-weight: bold;
+        width: 6.5em;
+        display: inline-block;
+      }
+
+      .rwd-table th,
+      .rwd-table td {
+        text-align: left;
+      }
+
+      .rwd-table th,
+      .rwd-table td:before {
+        font-weight: bold;
+      }
+
+      @media (min-width: 480px) {
+        .rwd-table td:before {
+          display: none;
+        }
+        .rwd-table th,
+        .rwd-table td {
+          display: table-cell;
+          padding: 0.25em 0.5em;
+        }
+        .rwd-table th:first-child,
+        .rwd-table td:first-child {
+          padding-left: 0;
+        }
+        .rwd-table th:last-child,
+        .rwd-table td:last-child {
+          padding-right: 0;
+        }
+        .rwd-table th,
+        .rwd-table td {
+          padding: 1em !important;
+        }
+      }
+      .btn {
+        letter-spacing: 0.1em;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 25px;
+        max-width: 160px;
+        position: relative;
+        text-decoration: none;
+        text-transform: uppercase;
+        width: 100%;
+      }
+      .btn:hover {
+        text-decoration: none;
+      }
+      /*btn_background*/
+      .effect04 {
+        --uismLinkDisplay: var(--smLinkDisplay, inline-flex);
+        display: var(--uismLinkDisplay);
+        color: #3b455c;
+        outline: solid 2px #3b455c;
+        position: relative;
+        transition-duration: 0.4s;
+        overflow: hidden;
+      }
+
+      .effect04::before,
+      .effect04 span {
+        margin: 0 auto;
+        transition-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
+        transition-duration: 0.4s;
+      }
+
+      /* 文字1を上に */
+      .effect04:hover {
+        background-color: #3b455c;
+      }
+
+      /* HOVERしたら文字1を上に */
+      .effect04:hover span {
+        -webkit-transform: translateY(-700%) scale(-0.1, 20);
+        transform: translateY(-700%) scale(-0.1, 20);
+      }
+
+      /*文字2*/
+      .effect04::before {
+        content: attr(data-sm-link-text);
+        color: #fff;
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: auto;
+        -webkit-transform: translateY(500%) scale(-0.1, 20);
+        transform: translateY(500%) scale(-0.1, 20);
+      }
+
+      /* HOVERしたら文字2を上に */
+      .effect04:hover::before {
+        letter-spacing: 0.05em;
+        -webkit-transform: translateY(0) scale(1, 1);
+        transform: translateY(0) scale(1, 1);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <div class="orderlist-head-bg6" id="top">
+        <div class="nav">
+          <div class="nav-left">
+            <a href="/">
+              <h2>FACS</h2>
+
+              <img src="{% static 'logo.png' %}" alt="" />
+            </a>
+          </div>
+
+          <ul class="menu">
+            <li><a href="/upload">上傳介面</a></li>
+            <li>
+              <a href="/videos/">影片列表</a>
+            </li>
+            <li>
+              <a href="/trade" class="in-menu">交易管理</a>
+            </li>
+            <li><a href="/about">關於我們</a></li>
+            <li>
+              <a href="/profile"
+                ><span data-descr="查看資料">你好！{{ user.username }}</span></a
+              >
+            </li>
+            <li><a href="{% url 'logout' %}">登出</a></li>
+          </ul>
+          <a href="#" class="showmenu">menu</a>
+        </div>
+
+        <div class="head"></div>
+      </div>
+
+      <div class="order-list-contain">
+        <h2>訂單列表 <i class="fa fa-list-alt" aria-hidden="true"></i></h2>
+        <div class="order-list-title">
+          <div class="buttons">
+            <div class="container">
+              
+              <h3>搜尋資料</h3>
+              <form action="{% url 'orderlist' %}" method='GET'>
+                {% csrf_token %}
+                <input type='text' name='name' value='' placeholder="輸入購買人或魚種"></input>
+                <button
+                  type="submit"
+                  class="btn effect04 effect05"
+                  data-sm-link-text="查 詢" style="height:30%;align-items: center;border-radius:0"
+                >
+                  <span>查 詢</span>
+                </button>
+              </form>
+              {% for message in messages %}
+              <div class="message-box">
+                <p>{{message}}</p>
+              </div>
+              {% endfor %}
+              <a
+              href="{% url 'order' %}"
+              class="btn effect04"
+              data-sm-link-text="前 往 新 增" style="height:15%;align-items: center;border-radius:0"
+              ><span>新 增 訂 單</span>
+              </a
+            >
+            </div>
+          </div>
+
+          <!-- 新增 -->
+        </div>
+
+
+        <div class="order-table-contain">
+          <table class="order-table rwd-table">
+            <thead>
+              <tr>
+                <th>價錢</th>
+                <th>魚隻數量</th>
+                <th>魚種</th>
+                <th>交易市場</th>
+                <th>交易日期</th>
+                <th>購買人</th>
+                <th>購買人資訊</th>
+                <th>編輯訂單</th>
+                <th>刪除訂單</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for order in orders %}
+              <tr>
+                <td data-th="價錢">{{ order.price }}</td>
+                <td data-th="魚隻數量">{{ order.quantity }}</td>
+                <td class="stress" data-th="魚種">{{ order.fish_species }}</td>
+                <td data-th="交易市場">{{ order.place }}</td>
+                <td data-th="交易日期">{{ order.date }}</td>
+                <td data-th="購買人">{{ order.buyer.name }}</td>
+                <td data-th="購買人資訊">
+                  <a href="{% url 'buyerinfo' id=order.buyer.id %}">查看</a>
+                </td>
+                <td data-th="編輯訂單">
+                  <a href="{% url 'orderdetail' id=order.id %}">編輯</a>
+                </td>
+                <td data-th="刪除訂單">
+                  <a href="{% url 'orderdelete' id=order.id %}" onclick="return con()">刪除</a>
+                  <script src="../../static/js/myScript_delete.js"></script>
+                </td>
+              </tr>
+              {% endfor %}{% endif %}
+            </tbody>
+          </table>
+          {% if orders.has_other_pages %}
+          <nav class="container">
+            <ul class="pagination">
+            {% if orders.has_previous %}
+              <li class="page-item"><a class="page-link" href="?page={{ orders.previous_page_number }}" style="margin:0px;">&laquo;</a></li>
+            {% else %}
+              <li class="disabled page-item"><span class="page-link">&laquo;</span></li>
+            {% endif %}
+            {% for i in orders.paginator.page_range %}
+              {% if orders.number == i %}
+                <li class="active page-item"><span class="page-link">{{ i }}</span></li>
+              {% else %}
+                <li><a class="page-link page-item" href="?page={{ i }}" style="margin:0px;">{{ i }}</a></li>
+              {% endif %}
+            {% endfor %}
+            {% if orders.has_next %}
+              <li><a class="page-link page-item" href="?page={{ orders.next_page_number }}" style="margin:0px;">&raquo;</a></li>
+            {% else %}
+              <li class="disabled page-item"><span class="page-link">&raquo;</span></li>
+            {% endif %}
+          </ul>
+          </nav>
+          {% endif %}
+        </div>
+      </div>
+      <div class="footer">
+        <div class="footer-nav">
+          <ul>
+            <li><a href="/upload">上傳介面</a></li>
+            ｜
+            <li><a href="/videos">影片列表</a></li>
+            ｜
+            <li><a href="/trade">交易管理</a></li>
+            ｜
+            <li><a href="/about">關於我們</a></li>
+          </ul>
+        </div>
+        <div class="num-ad">
+          <img
+            src="{% static 'logo.png' %}"
+            width="50px"
+            height="50px"
+            alt=""
+          />
+          <div class="num-ad2">
+            <p>服務電話:(02)0800-001-223</p>
+            <p>服務地址:屏東縣內埔鄉學府路1號</p>
+          </div>
+        </div>
+        <div class="copytight">
+          <p>COPYRIGHT © 2021-2026</p>
+          <p>
+            本站為單純的專題製作，資料、圖片來源皆出各網站，<br />不使用於任何商業或營利行為
+          </p>
+        </div>
+
+        <a href="#" class="top"><span>▲Top</span></a>
+      </div>
+    </div>
+  </body>
+</html>

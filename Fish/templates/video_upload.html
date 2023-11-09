@@ -1,0 +1,165 @@
+{% load rest_framework %}
+{% load static %}
+<link rel="stylesheet" href="css/loaders.min.css">
+<!doctype html>
+<html lang="zh-Hant-TW">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<head>
+    <!-- 設定編碼 -->
+    <meta charset="utf-8">
+    <!-- 設定標題 -->
+    <title>上傳介面</title>
+    <!-- 網頁簡介說明 -->
+    <meta name="description" content="上傳介面">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 套用css -->
+    <link href="{% static "css/style05.css" %}" rel="stylesheet" type="text/css" />
+    <!-- js -->
+    <script src="../static/js/jquery-3.1.1.min.js"></script>
+    <script src="../static/js/all1.js"></script>
+        <!--red rose字體-->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Red+Rose:wght@600&display=swap"
+          rel="stylesheet"
+        />
+        <!-- 字體 -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
+          rel="stylesheet"
+        />
+    <!-- ramaraja字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ramaraja&display=swap" rel="stylesheet">
+
+    <!-- 網站icon -->
+    <!-- <link rel="icon" href="{% static "images/favicon.ico" %}" type="images/favicon-icon" /> -->
+
+
+
+
+
+</head>
+
+<body>
+
+    <div class="wrap">
+        <div class="header up-head-bg1" id="top">
+            <div class="nav">
+                <div class="nav-left">
+                    <a href="/">
+                        <h2>FACS</h2>
+
+                        <img src="{% static 'logo.png' %}" alt="">
+                    </a>
+
+                </div>
+
+                <ul class="menu">
+                    <li><a href="/upload" class="in-menu">上傳介面</a></li>
+                    <li><a href="/videos/">影片列表</a></li>
+                    <li><a href="/trade">交易管理</a></li>
+                    <li><a href="/about">關於我們</a></li>
+                    <li><a href="/profile"><span data-descr="查看資料">你好！{{ user.username }}</span></a></li>
+                    <li><a href="{% url 'logout' %}">登出</a></li>
+                </ul>
+                <a href="#" class="showmenu">menu</a>
+            </div>
+
+            <div class="head">
+                <h1>魚苗偵測技術</h1>
+                <p>精密計算 節省您的時間</p>
+                <a href="/videos/">查看結果 → </a>
+            </div>
+
+        </div>
+
+        <div class="contain2">
+
+            <div class="tips">
+                <h2>Upload</h2>
+                <hr>
+            </div>
+            <div class="input">
+                <form action="{% url 'upload'%}" method="POST" class="post-form" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <p>影片描述:<br></p>
+                    <div class="textarea_style">
+                        <textarea class="textarea" id="textarea" name="caption" onkeyup="charCount();" rows="10"
+                            cols="40" maxlength="50" minlength="3"
+                            placeholder="Write your description here..."  required="required"></textarea>
+                    </div>
+                    <span class="textarea_count" id="textarea_count">0/50 (Max Character 50)</span>
+            </div>
+            <div class="file-upload">
+                <div class="illustrate">
+                    <h2>使用說明</h2>
+                    <hr>
+                    <p>1.輸入影片描述</p>
+                    <p>2.選擇上傳檔案</p>
+                    <p>3.點擊上傳檔案</p>
+                    <p>4.自動生成id和存檔日期</p>
+                    <span id="custom-text">未選擇任何檔案</span>
+                    {% for message in messages %}
+                    <p>{{message}}</p>
+                    {% endfor %}
+                </div>
+
+                <div class="upload"  id="upload_field">
+                    <!-- 上傳按鈕 -->
+                    <input type="file" id="real-file" hidden="hidden" name="video" accept="video/*" />
+                    <button type="button" id="custom-button" style="width:140px;height:50px;">選擇檔案</button>
+                    <!-- <button type="button"  style="width:180px;height:90px;"><img src="image/file.png" width="40px" height="40px" alt=""><br>選擇檔案</button> -->
+                    <div>
+                        <button type="submit" onclick="myFunction1()" class="button-upload" style="width:140px;height:50px;">上傳檔案</button>
+                    </div>
+                    <!-- <button type="button"  style="width:180px;height:90px;"><img src="image/file-upload.png" width="50px" height="40px" alt=""><br>上傳檔案</button> -->
+                </div>
+
+                <div id="spinner-box" style="display:none" >
+                  <stong style="font-size:20px;font-weight:700">辨識過程需要一些時間，完成後會自動跳轉頁面。</stong>
+                  <div class="spinner-border" role="status"></div>
+                </div>
+
+
+
+
+            </div>
+        </div>
+
+
+
+        <div class="footer">
+            <div class="footer-nav">
+                <ul>
+                    <li><a href="/upload">上傳介面</a></li>｜
+                    <li><a href="/videos">影片列表</a></li>｜
+                    <li><a href="/trade">交易管理</a></li>｜
+                    <li><a href="/about">關於我們</a></li>
+                </ul>
+            </div>
+            <div class="num-ad">
+                <img src="{% static 'logo.png' %}" width="50px" height="50px" alt="">
+                <div class="num-ad2">
+                    <p>服務電話:(02)0800-001-223</p>
+                    <p>服務地址:屏東縣內埔鄉學府路1號</p>
+                </div>
+            </div>
+            <div class="copytight">
+                <p> COPYRIGHT © 2021-2026</p>
+                <p>本站為單純的專題製作，資料、圖片來源皆出各網站，<br>不使用於任何商業或營利行為</p>
+
+            </div>
+
+            <a href="#" class="top"><span>▲Top</span></a>
+        </div>
+    </div>
+
+</body>
+<script src="../../static/js/myScript_upload.js"></script>
+</html>

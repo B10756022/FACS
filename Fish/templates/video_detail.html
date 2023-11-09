@@ -1,0 +1,16 @@
+{% load rest_framework %}
+
+{% block content %}
+
+
+<h1>更新介面 id：{{ video.pk }}</h1>
+
+<form action="{% url 'detail' pk=video.pk %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% render_form serializer %}
+    <input type="submit" value="Save">
+</form>
+
+
+
+{% endblock %}

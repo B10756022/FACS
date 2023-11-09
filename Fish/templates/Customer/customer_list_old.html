@@ -1,0 +1,193 @@
+{% if user.is_authenticated %} {%csrf_token %} {% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>顧客列表</title>
+    <!-- css插入 -->
+    <link href="{% static "css/style05.css" %}" rel="stylesheet" type="text/css"
+    />
+    <!-- js -->
+    <script src="../../static/js/jquery-3.1.1.min.js"></script>
+    <script src="../../static/js/all1.js"></script>
+    <!--red rose字體-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Red+Rose:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- 字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- ramaraja字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ramaraja&display=swap"
+      rel="stylesheet"
+    />
+
+    <script
+      src="https://kit.fontawesome.com/54733f5034.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <div class="orderlist-head-bg6" id="top">
+        <div class="nav">
+          <div class="nav-left">
+            <a href="/">
+              <h2>FACS</h2>
+
+              <img src="{% static 'logo.png' %}" alt="" />
+            </a>
+          </div>
+
+          <ul class="menu">
+            <li><a href="/upload">上傳介面</a></li>
+            <li>
+              <a href="/videos/">影片列表</a>
+            </li>
+            <li>
+              <a href="/trade" class="in-menu">交易管理</a>
+            </li>
+            <li><a href="/about">關於我們</a></li>
+            <li>
+              <a href="/profile"
+                ><span data-descr="查看資料">你好！{{ user.username }}</span></a
+              >
+            </li>
+            <li><a href="{% url 'logout' %}">登出</a></li>
+          </ul>
+          <a href="#" class="showmenu">menu</a>
+        </div>
+
+        <div class="head"></div>
+      </div>
+
+      <div class="order-list-contain">
+        <h2>
+          顧客列表 <i class="fa fa-address-book-o" aria-hidden="true"></i>
+        </h2>
+        <div class="order-list-title">
+          <div class="buttons">
+            <div class="container">
+              <a
+                href="{% url 'Customerpost'  %}"
+                class="btn effect04"
+                data-sm-link-text="前 往 新 增"
+                ><span>新增顧客</span></a
+              >
+            </div>
+          </div>
+          <!-- 新增 -->
+        </div>
+
+        <div class="order-table-contain">
+          <table class="order-table rwd-table">
+            <thead>
+              <tr>
+                <th>姓名</th>
+                <th>聯絡電話</th>
+                <th>聯絡地址</th>
+                <th>編輯顧客資料</th>
+                <th>刪除資料</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for customer in customers %}
+              <tr>
+                <td class="stress" data-th="姓名">{{ customer.name }}</td>
+                <td data-th="電話">{{ customer.mobile }}</td>
+                <td data-th="地址">{{ customer.location }}</td>
+                <td data-th="編輯">
+                  <a href="{% url 'Customerdetail'  id=customer.id %}">編輯</a>
+                </td>
+                <td data-th="刪除">
+                  <a href="{% url 'Customerdelete'  id=customer.id %}" onclick="return con()">刪除</a>
+                  <script>
+                    function con(){
+                        var message = confirm("確認刪除嗎？");
+                        if(message){
+                            return true;
+                        }else{
+                            return false;
+                        }
+                    }
+                    </script>
+                </td>
+                <td></td>
+              </tr>
+              {% endfor %}{% endif %}
+            </tbody>
+          </table>
+          <nav class="container">
+            <ul class="pagination">
+            {% if customers.has_previous %}
+              <li class="page-item"><a class="page-link" href="?page={{ customers.previous_page_number }}" style="margin:0px;">&laquo;</a></li>
+            {% else %}
+              <li class="disabled page-item"><span class="page-link">&laquo;</span></li>
+            {% endif %}
+            {% for i in customers.paginator.page_range %}
+              {% if customers.number == i %}
+                <li class="active page-item"><span class="page-link">{{ i }}</span></li>
+              {% else %}
+                <li><a class="page-link page-item" href="?page={{ i }}" style="margin:0px;">{{ i }}</a></li>
+              {% endif %}
+            {% endfor %}
+            {% if customers.has_next %}
+              <li><a class="page-link page-item" href="?page={{ customers.next_page_number }}" style="margin:0px;">&raquo;</a></li>
+            {% else %}
+              <li class="disabled page-item"><span class="page-link">&raquo;</span></li>
+            {% endif %}
+          </ul>
+          </nav>
+        </div>
+      </div>
+      <div class="footer">
+        <div class="footer-nav">
+          <ul>
+            <li><a href="/upload">上傳介面</a></li>
+            ｜
+            <li><a href="/videos">影片列表</a></li>
+            ｜
+            <li><a href="/trade">交易管理</a></li>
+            ｜
+            <li><a href="/about">關於我們</a></li>
+          </ul>
+        </div>
+        <div class="num-ad">
+          <img
+            src="{% static 'logo.png' %}"
+            width="50px"
+            height="50px"
+            alt=""
+          />
+          <div class="num-ad2">
+            <p>服務電話:(02)0800-001-223</p>
+            <p>服務地址:屏東縣內埔鄉學府路1號</p>
+          </div>
+        </div>
+        <div class="copytight">
+          <p>COPYRIGHT © 2021-2026</p>
+          <p>
+            本站為單純的專題製作，資料、圖片來源皆出各網站，<br />不使用於任何商業或營利行為
+          </p>
+        </div>
+
+        <a href="#" class="top"><span>▲Top</span></a>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,162 @@
+{% load rest_framework %} {% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>影片列表</title>
+    <!-- css插入 -->
+    <link href="{% static "css/style05.css" %}" rel="stylesheet" type="text/css"
+    />
+    <!-- js -->
+    <script src="../static/js/jquery-3.1.1.min.js"></script>
+    <script src="../static/js/all1.js"></script>
+    <!--red rose字體-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Red+Rose:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- 字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- ramaraja字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ramaraja&display=swap"
+      rel="stylesheet"
+    />
+
+    <script
+      src="https://kit.fontawesome.com/54733f5034.js"
+      crossorigin="anonymous"
+    ></script>
+    <link href="{% static "css/myCss.css" %}" rel="stylesheet" type="text/css"
+    />
+  </head>
+
+  <body>
+    <div class="wrap">
+      <div class="header videos-head-bg5" id="top">
+        <div class="nav">
+          <div class="nav-left">
+            <a href="/">
+              <h2>FACS</h2>
+
+              <img src="{% static 'logo.png' %}" alt="" />
+            </a>
+          </div>
+
+          <ul class="menu">
+            <li><a href="/upload">上傳介面</a></li>
+            <li>
+              <a href="/videos/" class="in-menu"
+                >影片列表</a
+              >
+            </li>
+            <li><a href="/trade">交易管理</a></li>
+            <li><a href="/about">關於我們</a></li>
+            <li>
+              <a href="/profile"
+                ><span data-descr="查看資料">你好！{{ user.username }}</span></a
+              >
+            </li>
+            <li><a href="{% url 'logout' %}">登出</a></li>
+          </ul>
+          <a href="#" class="showmenu">menu</a>
+        </div>
+
+        <div class="head"></div>
+      </div>
+
+      <div class="videos-contain">
+        <h2>影片列表 <i class="fa fa-youtube-play" aria-hidden="true"></i></h2>
+        <ul>
+          {% for video in videos %}
+          <li>
+            <div class="videos-list">
+              <video
+                controls="controls"
+                name="media"
+                width="100%"
+                height="100%"
+              >
+                {% if video.after_predict.url != none %}
+                <source src="{{ video.after_predict.url }}" type="video/mp4" />
+                {% else %}
+                <source src="{{ video.video.url }}" type="video/mp4" />
+                {% endif %}
+              </video>
+            </div>
+            <p>影片描述：</p>
+            <p style="height:40pt;">{{ video.caption }}</p>
+            {% if video.after_predict.url != none %}
+                <p id="num">偵測數量：{{ video.quantity }}</p>
+            {% else %}
+                <p id="num">未偵測到魚苗，請等待辨識完成，若已完成請重試</p>
+            {% endif %}
+
+
+            <div class="login-button-box">
+              <a href="{% url 'orderquantity'  quantity=video.quantity %}" class="submit-button" style="padding:5px;height:20pt;display: flex;align-items: center;">複製數字</a>
+            </div>
+
+
+            <p class="videos-contain-p-888" style="height:60pt;word-break: break-all;">
+              路徑：<a
+                href="{{ video.video.url }}"
+                target="_blank"
+                style="color: rgb(53, 63, 199)"
+                >{{ video.video.url }}</a
+              >
+            </p>
+            <p class="videos-contain-p-888">{{ video.date }}</p>
+          </li>
+
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="footer">
+        <div class="footer-nav">
+          <ul>
+            <li><a href="/upload">上傳介面</a></li>
+            ｜
+            <li><a href="/videos">影片列表</a></li>
+            ｜
+            <li><a href="/trade">交易管理</a></li>
+            ｜
+            <li><a href="/about">關於我們</a></li>
+          </ul>
+        </div>
+        <div class="num-ad">
+          <img
+            src="{% static 'logo.png' %}"
+            width="50px"
+            height="50px"
+            alt=""
+          />
+          <div class="num-ad2">
+            <p>服務電話:(02)0800-001-223</p>
+            <p>服務地址:屏東縣內埔鄉學府路1號</p>
+          </div>
+        </div>
+        <div class="copytight">
+          <p>COPYRIGHT © 2021-2026</p>
+          <p>
+            本站為單純的專題製作，資料、圖片來源皆出各網站，<br />不使用於任何商業或營利行為
+          </p>
+        </div>
+
+        <a href="#" class="top"><span>▲Top</span></a>
+      </div>
+    </div>
+  </body>
+</html>

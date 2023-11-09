@@ -1,0 +1,30 @@
+.submit-button{
+    font-family: "Noto Sans TC", sans-serif;
+    letter-spacing: 0px;
+    background-color: #afa761;
+    border-radius: 10px;
+    border: 2px #afa761 solid;
+    display: inline-block;
+    color: aliceblue;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    margin: 0 0% 0 3%;
+    font-weight: 500;
+}
+
+span[data-descr] {
+    position: relative;
+}
+
+span[data-descr]:hover::after {
+    content: attr(data-descr);
+    position: absolute;
+    left: 0.2em;
+    top: 2em;
+    background-color: rgb(105, 134, 151);
+    border: 1px gray solid;
+    border-radius: 3px;
+    padding: 3px;
+}

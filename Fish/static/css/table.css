@@ -1,0 +1,48 @@
+/*  table
+  ------------------------------------- */
+table {
+  border-collapse: collapse; /* 表格邊框合併 */
+  width: 100%; /* 寬度 100% */
+  background-color: rgba(255, 255, 255, 0.514); /* 背景白色 */
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+table thead th {
+  color: #ffffff; /* 表頭文字白色 */
+  background-image: linear-gradient(to top, #a89985c0 0%, #99784c 100%);
+}
+
+table td,
+table th {
+  text-align: center; /* 文字置中顯示 */
+  padding: 8px; /* 添加內距 */
+  font-size: large;
+}
+.td2 {
+  text-align: left; /* 文字置中顯示 */
+}
+
+table td {
+  border-right: 1px solid #f1f1f1; /* 表格 td 右邊框顏色 */
+}
+td:hover {
+  background-color: #e0e0e0;
+}
+
+table tr:nth-child(even) {
+  background: #f8f8f879; /* 表格偶數 tr 灰色背景 */
+}
+/*以下讓表格四個角變圓*/
+table thead th:first-child {
+  border-radius: 5px 0 0 0;
+}
+table thead th:last-child {
+  border-radius: 0 5px 0 0;
+}
+table tbody tr:last-child td:first-child {
+  border-radius: 0 0 0 5px;
+}
+
+table tbody tr:last-child td:last-child {
+  border-radius: 0 0 5px 0;
+}

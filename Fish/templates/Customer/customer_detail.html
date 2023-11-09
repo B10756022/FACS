@@ -1,0 +1,174 @@
+
+{% load rest_framework %} {% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>編輯顧客</title>
+    <!-- css插入 -->
+    <link href="{% static "css/style05.css" %}" rel="stylesheet" type="text/css"
+    />
+    <!-- js -->
+    <script src="../../static/js/jquery-3.1.1.min.js"></script>
+    <script src="../../static/js/all1.js"></script>
+    <!--red rose字體-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Red+Rose:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- 字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- ramaraja字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ramaraja&display=swap"
+      rel="stylesheet"
+    />
+
+    <script
+      src="https://kit.fontawesome.com/54733f5034.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <div class="orderlist-head-bg6" id="top">
+        <div class="nav">
+          <div class="nav-left">
+            <a href="/">
+              <h2>FACS</h2>
+
+              <img src="{% static 'logo.png' %}" alt="" />
+            </a>
+          </div>
+
+          <ul class="menu">
+            <li><a href="/upload">上傳介面</a></li>
+            <li>
+              <a href="/videos/">影片列表</a>
+            </li>
+            <li>
+              <a href="/trade" class="in-menu">交易管理</a>
+            </li>
+            <li><a href="/about">關於我們</a></li>
+            <li>
+              <a href="/profile"
+                ><span data-descr="查看資料">你好！{{ user.username }}</span></a
+              >
+            </li>
+            <li><a href="{% url 'logout' %}">登出</a></li>
+          </ul>
+          <a href="#" class="showmenu">menu</a>
+        </div>
+
+        <div class="head"></div>
+      </div>
+
+      <div class="order-list-contain">
+        <h2>編輯資訊 <i class="fa fa-pencil-square-o" aria-hidden="true"></i></h2>
+        <div class="order-list-title">
+          <div class="buttons">
+            <div class="container">
+              <a
+                href="{% url 'Customerlist' %}"
+                class="btn effect04"
+                data-sm-link-text="回 到 列 表"
+                ><span>顧客列表</span></a
+              >
+            </div>
+          </div>
+          <!-- 新增 -->
+        </div>
+        <div class="order-table-contain">
+            <form action="{% url 'Customerdetail' id=customer.id %}" method="POST" class="post-form" enctype="multipart/form-data">
+          {% csrf_token %}
+          <ul class="order-push">
+            <li>
+              <h3>姓名</h3>
+              <input type="text" name="name" maxlength="10" value="{{ customer.name }}" >
+            </li>
+            <li>
+              <h3>電話</h3>
+              <input type="text" name="mobile" maxlength="10"  value="{{ customer.mobile }}"  >
+            </li>
+            <li>
+              <h3>地址</h3>
+              <input type="text" name="location" maxlength="30"  value="{{ customer.location }}" >
+            </li>
+
+
+            
+          </ul>
+
+
+          <div class="order-list-title">
+            <div class="buttons">
+              <div class="container">
+                <button
+                  type="submit"
+                  class="btn effect04 effect05"
+                  data-sm-link-text="修 改"
+                >
+                  <span>修 改</span>
+                </button> </form>
+              </div>
+            </div>
+          </div>
+
+          {% for message in messages %}
+          <div class="message-box">
+            <p>{{message}}</p>
+          </div>
+
+        {% endfor %}
+        </div>
+      </div>
+
+      <div class="footer">
+        <div class="footer-nav">
+          <ul>
+            <li><a href="/upload">上傳介面</a></li>
+            ｜
+            <li><a href="/videos">影片列表</a></li>
+            ｜
+            <li><a href="/trade">交易管理</a></li>
+            ｜
+            <li><a href="/about">關於我們</a></li>
+          </ul>
+        </div>
+        <div class="num-ad">
+          <img
+            src="{% static 'logo.png' %}"
+            width="50px"
+            height="50px"
+            alt=""
+          />
+          <div class="num-ad2">
+            <p>服務電話:(02)0800-001-223</p>
+            <p>服務地址:屏東縣內埔鄉學府路1號</p>
+          </div>
+        </div>
+        <div class="copytight">
+          <p>COPYRIGHT © 2021-2026</p>
+          <p>
+            本站為單純的專題製作，資料、圖片來源皆出各網站，<br />不使用於任何商業或營利行為
+          </p>
+        </div>
+
+        <a href="#" class="top"><span>▲Top</span></a>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,200 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>交易行情</title>
+    <!-- css插入 -->
+    <link href="{% static "css/style05.css" %}" rel="stylesheet" type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="https: //cdnjs.cloudflare.com/ajax/libs/loaders.css/0.1.2/loaders.min.css;
+    "
+    />
+    <!-- js -->
+    <script src="../../static/js/jquery-3.1.1.min.js"></script>
+    <script src="../../static/js/all1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/loaders.css/0.1.2/loaders.css.js"></script>
+    <!--red rose字體-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Red+Rose:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- 字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- ramaraja字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ramaraja&display=swap"
+      rel="stylesheet"
+    />
+
+    <script
+      src="https://kit.fontawesome.com/54733f5034.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <div class="orderlist-head-bg6" id="top">
+        <div class="nav">
+          <div class="nav-left">
+            <a href="/">
+              <h2>FACS</h2>
+
+              <img src="{% static 'logo.png' %}" alt="" />
+            </a>
+          </div>
+
+          <ul class="menu">
+            {% if user.is_authenticated %}
+
+                <li><a href="/upload">上傳介面</a></li>
+                <li><a href="/videos/">影片列表</a></li>
+                <li><a href="/trade" class="in-menu">交易管理</a></li>
+                <li><a href="/about">關於我們</a></li>
+                <li>
+                  <a href="/profile"
+                    ><span data-descr="查看資料"
+                      >你好！{{ user.username }}</span
+                    ></a
+                  >
+                </li>
+                <li><a href="{% url 'logout' %}">登出</a></li>
+                {% else %}
+
+                <li><a href="/upload">上傳介面</a></li>
+                <li><a href="/videos/">影片列表</a></li>
+                <li><a href="/trade" class="in-menu">交易管理</a></li>
+                <li><a href="/about">關於我們</a></li>
+                <li><a href="{% url 'login' %}">登入</a></li>
+                {% endif %}
+          </ul>
+          <a href="#" class="showmenu">menu</a>
+        </div>
+
+        <div class="head"></div>
+      </div>
+
+      <div class="order-list-contain">
+        <h2>
+          漁產品交易行情 <i class="fa fa-list-alt" aria-hidden="true"></i>
+        </h2>
+        <div class="order-list-title">
+          <div class="buttons">
+            <div class="container">
+              <h3>查 詢 條 件</h3>
+              <input
+                type="text"
+                class="serchName"
+                placeholder="請輸入魚種或市場"
+              />
+              <a
+                href="#"
+                class="btn effect04 serchBTN"
+                data-sm-link-text="魚 種 查 詢"
+                ><span>點 擊 查 詢</span></a
+              >
+              <a
+                href="#"
+                class="btn effect04 allBTN"
+                data-sm-link-text="查 看 全 部"
+                ><span>查 看 全 部</span></a
+              >
+            </div>
+          </div>
+          <!-- 新增 -->
+        </div>
+
+        <p class="api-ps">
+          <a
+            href="https://efish.fa.gov.tw/efish/statistics/reportmap.htm"
+            target="_blank"
+          >
+            <i class="fa fa-link" aria-hidden="true"></i
+            >更多資料請連結至漁產品全球資訊網查詢
+          </a>
+        </p>
+
+        <div class="order-table-contain fishAPI-table-contain">
+          <table class="order-table order-table2 rwd-table">
+            <thead>
+              <tr>
+                <th>交易日期</th>
+                <th>魚種</th>
+                <th>交易市場</th>
+                <th>上價</th>
+                <th>中價</th>
+                <th>下價</th>
+                <th>交易量</th>
+                <th>平均價</th>
+              </tr>
+            </thead>
+            <tbody class="tableAPI">
+              <tr>
+                <!-- <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td> -->
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="footer">
+        <div class="footer-nav">
+          <ul>
+            <li><a href="/upload">上傳介面</a></li>
+            ｜
+            <li><a href="/videos">影片列表</a></li>
+            ｜
+            <li><a href="/trade">交易管理</a></li>
+            ｜
+            <li><a href="/about">關於我們</a></li>
+          </ul>
+        </div>
+        <div class="num-ad">
+          <img
+            src="{% static 'logo.png' %}"
+            width="50px"
+            height="50px"
+            alt=""
+          />
+          <div class="num-ad2">
+            <p>服務電話:(02)0800-001-223</p>
+            <p>服務地址:屏東縣內埔鄉學府路1號</p>
+          </div>
+        </div>
+        <div class="copytight">
+          <p>COPYRIGHT © 2021-2026</p>
+          <p>
+            本站為單純的專題製作，資料、圖片來源皆出各網站，<br />不使用於任何商業或營利行為
+          </p>
+        </div>
+
+        <a href="#" class="top"><span>▲Top</span></a>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../../static/js/fishAPI.js"></script>
+  </body>
+</html>

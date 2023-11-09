@@ -1,0 +1,171 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>功能頁</title>
+    <!-- 套用css -->
+    <link href="{% static "css/style05.css" %}" rel="stylesheet" type="text/css"
+    />
+    <!-- js -->
+    <script src="../static/js/jquery-3.1.1.min.js"></script>
+    <script src="../static/js/all1.js"></script>
+    <!--red rose字體-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Red+Rose:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- 字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- ramaraja字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ramaraja&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="wrap">
+      <div class="header wel-head-bg2" id="top">
+        <div class="nav">
+          <div class="nav-left">
+            <a href="/">
+              <h2>FACS</h2>
+
+              <img src="{% static 'logo.png' %}" alt="" />
+            </a>
+          </div>
+
+          <ul class="menu">
+            {% if user.is_authenticated %}
+
+                <li><a href="/upload">上傳介面</a></li>
+                <li><a href="/videos/">影片列表</a></li>
+                <li><a href="/trade">交易管理</a></li>
+                <li><a href="/about" class="in-menu">關於我們</a></li>
+                <li>
+                  <a href="/profile"
+                    ><span data-descr="查看資料"
+                      >你好！{{ user.username }}</span
+                    ></a
+                  >
+                </li>
+                <li><a href="{% url 'logout' %}">登出</a></li>
+                {% else %}
+
+                <li><a href="/upload">上傳介面</a></li>
+                <li><a href="/videos/">影片列表</a></li>
+                <li><a href="/trade">交易管理</a></li>
+                <li><a href="/about" class="in-menu">關於我們</a></li>
+                <li><a href="{% url 'login' %}">登入</a></li>
+                {% endif %}
+          </ul>
+          <a href="#" class="showmenu">menu</a>
+        </div>
+
+        <div class="head">
+          <h1>魚苗偵測技術</h1>
+          <p>精密計算 節省您的時間</p>
+          <a href="/upload">立即使用 → </a>
+        </div>
+      </div>
+
+      <div class="contain">
+        <div class="about-block">
+          <div class="block1">
+            <img
+              src="{% static 'about-fish.jpg' %}"
+              alt=""
+              class="about-fish"
+              width="215px"
+              height="260px"
+            />
+            <img
+              src="{% static 'swordfish.png' %}"
+              alt=""
+              class="swordfish"
+              width="350px"
+              height="240px"
+            />
+          </div>
+          <div class="block3">
+            <h2>ABOUT US</h2>
+            <hr />
+            <p>我們的初衷<br />是為了讓商家們<br />漁民們</p>
+            <p>
+              能夠更快速 更有效率的方式<br />解決數量計算的難題<br />服務到位
+              效率在線
+            </p>
+            <p>以最快的方式<br />達到最大的利益</p>
+          </div>
+        </div>
+        <div class="upload-block">
+          <div class="block2">
+            <h2>UPLOAD</h2>
+            <p>一鍵上傳好輕鬆<br />在家也能輕鬆做</p>
+            <a href="/upload">立即上傳 》</a>
+          </div>
+        </div>
+        <div class="videos-block">
+          <div class="block2">
+            <h2>VIDEOS</h2>
+            <p>完整與清晰兼備<br />不怕找不到影片</p>
+            <a href="/videos">《 立即觀看</a>
+          </div>
+        </div>
+        <div class="trade-block">
+          <div class="block2">
+            <h2>TRADE</h2>
+            <p>交易方便又迅速<br />不怕找不到紀錄</p>
+            <a href="/trade">立即交易 》</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div class="footer-nav">
+          <ul>
+            <li><a href="/upload">上傳介面</a></li>
+            ｜
+            <li><a href="/videos">影片列表</a></li>
+            ｜
+            <li><a href="/trade">交易管理</a></li>
+            ｜
+            <li><a href="/about">關於我們</a></li>
+          </ul>
+        </div>
+        <div class="num-ad">
+          <img
+            src="{% static 'logo.png' %}"
+            width="50px"
+            height="50px"
+            alt=""
+          />
+          <div class="num-ad2">
+            <p>服務電話:(02)0800-001-223</p>
+            <p>服務地址:屏東縣內埔鄉學府路1號</p>
+          </div>
+        </div>
+        <div class="copytight">
+          <p>COPYRIGHT © 2021-2026</p>
+          <p>
+            本站為單純的專題製作，資料、圖片來源皆出各網站，<br />不使用於任何商業或營利行為
+          </p>
+        </div>
+
+        <a href="#top" class="top"><span>▲Top</span></a>
+      </div>
+    </div>
+  </body>
+</html>

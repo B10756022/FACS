@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- 載入static -->
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FACS魚苗自動計數</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper@7/swiper-bundle.min.css"
+    />
+    <!-- css插入 -->
+    <link href="{% static "css/style.css" %}" rel="stylesheet" type="text/css"
+    />
+    <!-- js -->
+    <script src="../static/js/jquery-3.1.1.min.js"></script>
+    <script src="../static/js/all1.js"></script>
+    <!--red rose字體-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Red+Rose:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- 字體 -->
+    <!-- 字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- ramaraja字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ramaraja&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <link href="{% static "css/myCss.css" %}" rel="stylesheet" type="text/css"
+    />
+    <!-- Slider main container -->
+    <div class="swiper">
+      <!-- Additional required wrapper -->
+      <div class="swiper-wrapper">
+        <!-- Slides -->
+        <div class="swiper-slide">
+          <div class="bg-1">
+            <div class="nav">
+              <div class="nav-left">
+                <a href="/">
+                  <h2>FACS</h2>
+
+                  <img src="{% static 'logo.png' %}" alt="" />
+                </a>
+              </div>
+
+              <ul class="menu">
+                {% if user.is_authenticated %}
+
+                <li><a href="/upload">上傳介面</a></li>
+                <li><a href="/videos/">影片列表</a></li>
+                <li><a href="/trade">交易管理</a></li>
+                <li><a href="/about">關於我們</a></li>
+                <li>
+                  <a href="/profile"
+                    ><span data-descr="查看資料"
+                      >你好！{{ user.username }}</span
+                    ></a
+                  >
+                </li>
+                <li><a href="{% url 'logout' %}">登出</a></li>
+                {% else %}
+
+                <li><a href="/upload">上傳介面</a></li>
+                <li><a href="/videos/">影片列表</a></li>
+                <li><a href="0/trade">交易管理</a></li>
+                <li><a href="/about">關於我們</a></li>
+                <li><a href="{% url 'login' %}">登入</a></li>
+                {% endif %}
+              </ul>
+              <a href="#" class="showmenu">menu</a>
+            </div>
+            <div class="header-box">
+              <h1 class="header-primary">
+                <a href="#"></a><span class="header-primary-main">Fry </span
+                ><span class="header-primary-main2">AUTOMATIC COUNTING</span>
+                <span class="header-primary-sub">魚苗 所有魚的根本</span>
+              </h1>
+              <a class="button" href="/about">立即探索 </a>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="bg-2">
+            <div class="nav">
+              <div class="nav-left">
+                <a href="/">
+                  <h2>FACS</h2>
+                  <img src="{% static 'logo.png' %}" alt="" />
+                </a>
+              </div>
+
+              <ul class="menu">
+                {% if user.is_authenticated %}
+
+                <li><a href="/upload">上傳介面</a></li>
+                <li><a href="/videos/">影片列表</a></li>
+                <li><a href="/trade">交易管理</a></li>
+                <li><a href="/about">關於我們</a></li>
+                <li>
+                  <a href="/profile"
+                    ><span data-descr="查看資料"
+                      >你好！{{ user.username }}</span
+                    ></a
+                  >
+                </li>
+                <li><a href="{% url 'logout' %}">登出</a></li>
+                {% else %}
+
+                <li><a href="/upload">上傳介面</a></li>
+                <li><a href="/videos/">影片列表</a></li>
+                <li><a href="/trade">交易管理</a></li>
+                <li><a href="/about">關於我們</a></li>
+                <li><a href="{% url 'login' %}">登入</a></li>
+                {% endif %}
+              </ul>
+              <a href="#" class="showmenu">menu</a>
+            </div>
+            <div class="header-box">
+              <h1 class="header-primary">
+                <span class="header-primary-main">Fry </span
+                ><span class="header-primary-main2">AUTOMATIC COUNTING</span>
+                <span class="header-primary-sub">魚苗 所有魚的根本</span>
+                <a class="button" href="/about"
+                  >立即探索
+                </a>
+              </h1>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="bg-3">
+            <div class="nav">
+              <div class="nav-left">
+                <a href="/">
+                  <h2>FACS</h2>
+                  <img src="{% static 'logo.png' %}" alt="" />
+                </a>
+              </div>
+
+              <ul class="menu">
+                {% if user.is_authenticated %}
+                <li><a href="/upload">上傳介面</a></li>
+                <li><a href="/videos/">影片列表</a></li>
+                <li><a href="/trade">交易管理</a></li>
+                <li><a href="/about">關於我們</a></li>
+                <li>
+                  <a href="/profile"
+                    ><span data-descr="查看資料"
+                      >你好！{{ user.username }}</span
+                    ></a
+                  >
+                </li>
+                <li><a href="{% url 'logout' %}">登出</a></li>
+                {% else %}
+                <li><a href="/upload">上傳介面</a></li>
+                <li><a href="/videos/">影片列表</a></li>
+                <li><a href="/trade">交易管理</a></li>
+                <li><a href="/about">關於我們</a></li>
+                <li><a href="{% url 'login' %}">登入</a></li>
+                {% endif %}
+              </ul>
+              <a href="#" class="showmenu">menu</a>
+            </div>
+            <div class="header-box">
+              <h1 class="header-primary">
+                <span class="header-primary-main">Fry </span
+                ><span class="header-primary-main2">AUTOMATIC COUNTING</span>
+                <span class="header-primary-sub">魚苗 所有魚的根本</span>
+                <a class="button" href="/about"
+                  >立即探索
+                </a>
+              </h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- If we need pagination -->
+      <div class="swiper-pagination"></div>
+
+      <!-- If we need navigation buttons 箭頭 先不使用
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div> -->
+
+      <!-- If we need scrollbar 滑動滾輪條 先不用
+    <div class="swiper-scrollbar"></div> -->
+    </div>
+
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+    <script src="../../static/js/myScript_play.js"></script>
+  </body>
+</html>

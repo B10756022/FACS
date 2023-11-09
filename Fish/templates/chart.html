@@ -1,0 +1,295 @@
+
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>數據統計</title>
+    <!-- css插入 -->
+    <link href="{% static "css/style05.css" %}" rel="stylesheet" type="text/css"
+    />
+    <!-- js -->
+    <script src="../../static/js/jquery-3.1.1.min.js"></script>
+    <script src="../../static/js/all1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <!--red rose字體-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Red+Rose:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- 字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- ramaraja字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ramaraja&display=swap"
+      rel="stylesheet"
+    />
+
+    <script
+      src="https://kit.fontawesome.com/54733f5034.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <div class="orderlist-head-bg6" id="top">
+        <div class="nav">
+          <div class="nav-left">
+            <a href="/">
+              <h2>FACS</h2>
+
+              <img src="{% static 'logo.png' %}" alt="" />
+            </a>
+          </div>
+
+          <ul class="menu">
+            <li><a href="/upload">上傳介面</a></li>
+            <li>
+              <a href="/videos/">影片列表</a>
+            </li>
+            <li>
+              <a href="/trade" class="in-menu">交易管理</a>
+            </li>
+            <li><a href="/about">關於我們</a></li>
+            <li>
+              <a href="/profile"
+                ><span data-descr="查看資料">你好！{{ user.username }}</span></a
+              >
+            </li>
+            <li><a href="{% url 'logout' %}">登出</a></li>
+          </ul>
+          <a href="#" class="showmenu">menu</a>
+        </div>
+
+      </div>
+
+      <div class="chart-contain">
+         <h2>數據統計 <i class="fa fa-list-alt" aria-hidden="true"></i></h2>
+        <h5 class="chart-a"><a href="#chart-1">各月份交易金額統計</a> | <a href="#chart-2">各月份交易數量統計</a> | <a href="#chart-3">各地區交易數量統計</a></h5>
+
+
+
+<div class="chart-block" id="chart-1">
+         <h4>各月份交易金額統計</h4>
+    <canvas id="myChart" width="" height="150px"></canvas>
+</div>
+
+<div class="chart-block" id="chart-2">
+  <h4>各月份交易數量統計</h4>
+    <canvas id="myChart1" width="" height="150px"></canvas>
+</div>
+
+
+<div class="chart-block" id="chart-3">
+  <h4>各地區交易數量統計</h4>
+    <canvas id="myChart2" width="" height="150px"></canvas>
+</div>
+
+      </div>
+      <div class="footer">
+        <div class="footer-nav">
+          <ul>
+            <li><a href="/upload">上傳介面</a></li>
+            ｜
+            <li><a href="/videos">影片列表</a></li>
+            ｜
+            <li><a href="/trade">交易管理</a></li>
+            ｜
+            <li><a href="/about">關於我們</a></li>
+          </ul>
+        </div>
+        <div class="num-ad">
+          <img
+            src="{% static 'logo.png' %}"
+            width="50px"
+            height="50px"
+            alt=""
+          />
+          <div class="num-ad2">
+            <p>服務電話:(02)0800-001-223</p>
+            <p>服務地址:屏東縣內埔鄉學府路1號</p>
+          </div>
+        </div>
+        <div class="copytight">
+          <p>COPYRIGHT © 2021-2026</p>
+          <p>
+            本站為單純的專題製作，資料、圖片來源皆出各網站，<br />不使用於任何商業或營利行為
+          </p>
+        </div>
+
+        <a href="#" class="top"><span>▲Top</span></a>
+      </div>
+    </div>
+
+  <script>
+  function getCookie(name) {
+		    var cookieValue = null;
+		    if (document.cookie && document.cookie !== '') {
+		        var cookies = document.cookie.split(';');
+		        for (var i = 0; i < cookies.length; i++) {
+		            var cookie = cookies[i].trim();
+		            // Does this cookie string begin with the name we want?
+		            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+		                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		                break;
+		            }
+		        }
+		    }
+		    return cookieValue;
+		}
+	var csrftoken = getCookie('csrftoken');
+
+
+	function getRandomColor() {
+        var letters = '0123456789ABCDEF'.split('');
+        var color = '#';
+        for (var i = 0; i < 6; i++ ) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+
+									type: 'bar',
+
+									data: {
+
+											labels: ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
+											datasets:
+											[
+												{
+													data: [{%for price in price%} '{{price}}', {% endfor %}],
+													label:["價錢"],
+													backgroundColor:getRandomColor(),
+													borderColor: 'rgba(255, 99, 132, 0.2)',
+												},
+
+												]
+									},
+									options: {
+
+											scales: {
+													xAxes: [{
+																			gridLines: {
+                                                                                    color: "#FFFFFF",
+                                                                                    },
+																			display: true,
+																			scaleLabel: {
+																					display: true,
+																					labelString: '交易月份'
+																			}
+																	}],
+																	yAxes: [{
+																	        gridLines: {
+                                                                                    color: "#FFFFFF",
+                                                                                    },
+																			display: true,
+																			scaleLabel: {
+																					display: true,
+																					labelString: '價錢'
+																			}
+																	}]
+											},
+									},
+
+							})
+
+var ctx1 = document.getElementById('myChart1').getContext('2d');
+var myChart1 = new Chart(ctx1, {
+
+									type: 'bar',
+
+									data: {
+
+														labels: ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
+														datasets:
+														[
+															{
+																data: [{%for quantity in quantity%} '{{quantity}}', {% endfor %}],
+																label:["數量"],
+																backgroundColor:getRandomColor(),
+																borderColor: 'rgba(255, 99, 132, 0.2)',
+															},
+
+															]
+												},
+									options: {
+
+														scales: {
+																xAxes: [{
+																                        gridLines: {
+																				        color: "#FFFFFF",
+																				        },
+																						display: true,
+																						scaleLabel: {
+																								display: true,
+																								labelString: '交易月份'
+																						}
+																				}],
+																				yAxes: [{
+																				        gridLines: {
+																				        color: "#FFFFFF",
+																				        },
+																						display: true,
+																						scaleLabel: {
+																								display: true,
+																								labelString: '數量'
+																						}
+																				}]
+														},
+												},
+
+							})
+
+
+var ctx2 = document.getElementById('myChart2').getContext('2d');
+var myChart2 = new Chart(ctx2, {
+
+																type: 'doughnut',
+
+																data: {
+
+																					labels: [{%for i in town%} '{{i}}', {% endfor %}],
+																					datasets:
+																					[
+																						{
+																							data: [{%for i in t_price%} '{{i}}', {% endfor %}],
+																							label:["價錢"],
+																							backgroundColor:
+																							  [{%for i in t_price%} getRandomColor(), {% endfor %}],
+																							borderColor: 'rgba(255, 99, 132, 0.2)',
+																						},
+
+																						]
+																			},
+																options: {
+
+																					plugins: {
+                                                                                              legend: {
+                                                                                                  display: true,
+                                                                                              }
+                                                                                          },
+																			},
+
+														})
+
+
+
+
+</script>
+  </body>
+</html>
